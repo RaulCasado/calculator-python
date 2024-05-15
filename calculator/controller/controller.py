@@ -1,15 +1,19 @@
 # controller/controller.py
 
 class ApplicationController:
-    def __init__(self, master, counter, view):
+    def __init__(self, master, calculator, view):
         self.master = master
-        self.counter = counter
+        self.calculator = calculator
         self.view = view
-        self.view.set_button_command(self.increase_counter)
-
-    def increase_counter(self):
-        self.counter.increase_counter()
-        self.view.update_counter_label(self.counter.value)
+        self.operation = "0"
+        self.view.initialize_buttons(self.control_buttons)
 
     def run(self):
         self.master.mainloop()
+
+    def control_buttons(self,pressed_button):
+        if pressed_button == "=":
+            result = self.calculator.make_calculation(self.operation)
+            self.view.show_result(result)
+        self.operation += pressed_button
+        self.view.update_result(pressed_button)

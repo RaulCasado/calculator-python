@@ -7,13 +7,24 @@ class ApplicationView:
         self.master = master
         self.frm = ttk.Frame(master, padding=100)
         self.frm.grid()
-        self.label = ttk.Label(self.frm, text="Counter: 0")
-        self.label.grid(column=0, row=0)
-        self.button = ttk.Button(self.frm, text="Increase")
-        self.button.grid(column=1, row=0)
+        self.result = ttk.Label(self.frm, text="0")
+        self.result.grid(column=0, row=0)
+        self.buttons = [
+            ("7", 1, 0), ("8", 1, 1), ("9", 1, 2), ("/", 1, 3),
+            ("4", 2, 0), ("5", 2, 1), ("6", 2, 2), ("*", 2, 3),
+            ("1", 3, 0), ("2", 3, 1), ("3", 3, 2), ("-", 3, 3),
+            ("0", 4, 0), (".", 4, 1), ("=", 4, 2), ("+", 4, 3),
+            ("C", 5, 0) 
+        ]
 
-    def set_button_command(self, command):
-        self.button.config(command=command)
+    def initialize_buttons(self,control_buttons_callback):
+        for (text, row, column) in self.buttons:
+            button = ttk.Button(self.frm, text=text, command=lambda t=text: control_buttons_callback(t))
+            button.grid(row=row, column=column, padx=5, pady=5)
 
-    def update_counter_label(self, value):
-        self.label.config(text=f"Counter: {value}")
+    def update_result(self,value_to_update):
+        full_text = self.result.cget("text") + value_to_update
+        self.result.config(text = full_text)
+
+    def show_result(self,value):
+        self.result.config(text=value)

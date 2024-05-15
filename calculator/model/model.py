@@ -1,8 +1,8 @@
 # model/counter.py
 
-class Counter:
+class Calculator:
     def __init__(self):
         self.value = 0
 
-    def increase_counter(self):
-        self.value += 1
+    def make_calculation(self,operation):
+        return str(eval(operation[1:]))
