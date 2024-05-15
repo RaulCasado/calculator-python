@@ -5,4 +5,6 @@ class Calculator:
         self.value = 0
 
     def make_calculation(self,operation):
-        return str(eval(operation[1:]))
+        if operation == "":
+            return "0"
+        return str(eval(operation))

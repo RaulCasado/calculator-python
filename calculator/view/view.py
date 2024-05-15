@@ -23,7 +23,7 @@ class ApplicationView:
             button.grid(row=row, column=column, padx=5, pady=5)
 
     def update_result(self,value_to_update):
-        full_text = self.result.cget("text") + value_to_update
+        full_text = value_to_update if self.result.cget("text") == "0" else self.result.cget("text") + value_to_update
         self.result.config(text = full_text)
 
     def show_result(self,value):
