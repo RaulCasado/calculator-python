@@ -28,3 +28,11 @@ class ApplicationView:
 
     def show_result(self,value):
         self.result.config(text=value)
+
+    def bind_keyboard_event(self, handler):
+        for key in range(10):
+            self.master.bind(str(key), handler)
+
+        operators = ["+", "-", "*", "/", "=",'<Return>']
+        for op in operators:
+            self.master.bind(op, handler)

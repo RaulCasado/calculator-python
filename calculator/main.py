@@ -1,5 +1,3 @@
-# main.py
-
 from tkinter import Tk
 from controller.controller import ApplicationController
 from model.model import Calculator
