@@ -14,6 +14,7 @@ class ApplicationController:
         if pressed_button == "=":
             result = self.calculator.make_calculation(self.operation)
             self.view.show_result(result)
+            self.operation = ""
             return True
         if pressed_button == "C":
             self.view.reset_result()
@@ -25,6 +26,7 @@ class ApplicationController:
     def on_key_pressed(self, event):
         if event.char == "=" or event.char == "\r":
             result = self.calculator.make_calculation(self.operation)
+            self.operation =""
             self.view.show_result(result)
             return True
         if event.char == "c" or event.char == "C":
