@@ -15,6 +15,10 @@ class ApplicationController:
             result = self.calculator.make_calculation(self.operation)
             self.view.show_result(result)
             return True
+        if pressed_button == "C":
+            self.view.reset_result()
+            self.operation = ""
+            return True
         self.operation += pressed_button
         self.view.update_result(pressed_button)
     
@@ -22,6 +26,10 @@ class ApplicationController:
         if event.char == "=" or event.char == "\r":
             result = self.calculator.make_calculation(self.operation)
             self.view.show_result(result)
+            return True
+        if event.char == "c" or event.char == "C":
+            self.view.reset_result()
+            self.operation = ""
             return True
         self.operation += event.char
         self.view.update_result(event.char)

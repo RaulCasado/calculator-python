@@ -33,6 +33,10 @@ class ApplicationView:
         for key in range(10):
             self.master.bind(str(key), handler)
 
-        operators = ["+", "-", "*", "/", "=",'<Return>']
+        operators = ["+", "-", "*", "/", "=",'<Return>',"c","C"]
         for op in operators:
             self.master.bind(op, handler)
+
+    def reset_result(self):
+        self.result.config(text="0")
+        print(self.result.cget("text"))
