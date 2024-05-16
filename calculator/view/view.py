@@ -1,4 +1,5 @@
 from tkinter import ttk
+import tkinter.messagebox
 
 class ApplicationView:
     def __init__(self, master):
@@ -12,7 +13,7 @@ class ApplicationView:
             ("4", 2, 0), ("5", 2, 1), ("6", 2, 2), ("*", 2, 3),
             ("1", 3, 0), ("2", 3, 1), ("3", 3, 2), ("-", 3, 3),
             ("0", 4, 0), (".", 4, 1), ("=", 4, 2), ("+", 4, 3),
-            ("C", 5, 0) 
+            ("C", 5, 0), ("(", 5, 3), (")", 6 ,3),
         ]
 
     def initialize_buttons(self,control_buttons_callback):
@@ -31,10 +32,12 @@ class ApplicationView:
         for key in range(10):
             self.master.bind(str(key), handler)
 
-        operators = ["+", "-", "*", "/", "=",'<Return>',"c","C"]
+        operators = ["+", "-", "*", "/", "=",'<Return>',"c","C","(",")"]
         for op in operators:
             self.master.bind(op, handler)
 
     def reset_result(self):
         self.result.config(text="0")
-        print(self.result.cget("text"))
+
+    def open_popup(self, message):
+        tkinter.messagebox.showinfo("Mensaje", message)
