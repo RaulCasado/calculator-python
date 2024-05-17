@@ -30,9 +30,14 @@ class ApplicationController:
     
     def on_key_pressed(self, event):
         if event.char == "=" or event.char == "\r":
-            result = self.calculator.make_calculation(self.operation)
-            self.operation =""
+            result = "0"
+            try:
+                result = self.calculator.make_calculation(self.operation)
+            except ParenthesisError as parenthesis:
+                self.view.open_popup(parenthesis.message)
+                return True
             self.view.show_result(result)
+            self.operation = ""
             return True
         if event.char == "c" or event.char == "C":
             self.view.reset_result()
