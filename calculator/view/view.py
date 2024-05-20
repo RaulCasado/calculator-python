@@ -33,11 +33,16 @@ class ApplicationView:
     def show_result(self, value):
         self.result.config(text=value)
 
+    def delete(self):
+        text = self.result.cget("text")
+        new_text = text[:-1]
+        self.show_result(new_text)
+
     def bind_keyboard_event(self, handler):
         for key in range(10):
             self.master.bind(str(key), handler)
 
-        operators = ["+", "-", "*", "/", "=", "<Return>", "c", "C", "(", ")"]
+        operators = ["+", "-", "*", "/", "=", "<Return>", "c", "C", "(", ")","<Key-BackSpace>"]
         for op in operators:
             self.master.bind(op, handler)
 

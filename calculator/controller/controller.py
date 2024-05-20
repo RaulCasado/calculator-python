@@ -25,6 +25,11 @@ class ApplicationController:
             self.operation = ""
             self.calculator.reset_previous_value()
             return True
+        if pressed_button == "<--":
+            if self.operation != "":
+                self.view.delete()
+                self.operation = self.operation[:-1]
+            return True
         self.operation += pressed_button
         self.view.update_result(pressed_button)
     
@@ -43,6 +48,11 @@ class ApplicationController:
             self.view.reset_result()
             self.operation = ""
             self.calculator.reset_previous_value()
+            return True
+        if event.char == "\b":
+            if self.operation != "":
+                self.view.delete()
+                self.operation = self.operation[:-1]
             return True
         self.operation += event.char
         self.view.update_result(event.char)
