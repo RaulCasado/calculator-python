@@ -10,7 +10,6 @@ class ApplicationController:
         self.view.bind_keyboard_event(self.on_key_pressed)
 
     def handle_calculation(self):
-        """Handles the calculation and updates the view with the result."""
         result = "0"
         try:
             result = self.calculator.make_calculation(self.operation)
@@ -24,19 +23,16 @@ class ApplicationController:
         self.operation = ""
 
     def handle_clear(self):
-        """Clears the current operation and resets the calculator and view."""
         self.view.reset_result()
         self.operation = ""
         self.calculator.reset_previous_value()
 
     def handle_delete(self):
-        """Deletes the last character in the current operation."""
         if self.operation:
             self.view.delete()
             self.operation = self.operation[:-1]
 
     def control_buttons(self, pressed_button):
-        """Handles button press events."""
         actions = {
             "=": self.handle_calculation,
             "C": self.handle_clear,
@@ -52,7 +48,6 @@ class ApplicationController:
 
 
     def on_key_pressed(self, event):
-        """Handles keyboard events."""
         actions = {
             "=": self.handle_calculation,
             "\r": self.handle_calculation,  
@@ -70,5 +65,4 @@ class ApplicationController:
 
 
     def run(self):
-        """Starts the main application loop."""
         self.master.mainloop()
