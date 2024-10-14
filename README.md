@@ -15,25 +15,44 @@ This project is a simple calculator application built using Python's Tkinter lib
 ## Requirements
 
 - Python 3.10
-- Tkinter library (sudo apt-get install python3-tk)
+- Tkinter (included with Python)
 
 ## Installation
 
 1. Clone the repository:
 
-2. Install the dependencies:
+2. Make sure to create a virtual environment and activate it:
+
+    ```sh
+    python -m venv name_of_virtualenv
+    source name_of_virtualenv/bin/activate
+    ```
+
+3. Install the dependencies:
 
     ```sh
     pip install -r requirements.txt
     ```
 
-3. Navigate to the project directory:
+4. Tkinter should be installed by default with Python. If not, you can install it using the following command:
+
+    ```sh
+    sudo apt-get install python3-tk
+    ```
+
+5. Use pip freeze to see installed packages:
+
+    ```sh
+    pip freeze
+    ```
+
+6. Navigate to the project directory:
 
     ```sh
     cd calculator
     ```
 
-4. Run the application:
+7. Run the application:
 
     ```sh
     python main.py

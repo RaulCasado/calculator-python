@@ -1,1 +1,1 @@
-numexpr
+numexpr==2.10.1

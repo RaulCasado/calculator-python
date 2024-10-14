@@ -1,17 +1,19 @@
-from tkinter import ttk, Text, Tk
-import tkinter.messagebox
+import tkinter as tk
+from tkinter import ttk, messagebox
 
 class ApplicationView:
     def __init__(self, master):
         self.master = master
-        self.master.title("Calculadora")
-        self.master.geometry("1400x400")
+        self.master.title("Futuristic Calculator")
+        self.master.geometry("1800x600")
+        self.master.style = ttk.Style()
+        self.master.style.theme_use('clam')
 
         self.frm = ttk.Frame(master)
         self.frm.grid(padx=10, pady=10, sticky="nsew")
 
-        self.result = Text(self.frm, height=2, font=("Helvetica", 20), wrap="none")
-        self.result.grid(row=0, column=0, columnspan=4, pady=10)
+        self.result = tk.Text(self.frm, height=2, font=("Orbitron", 24), wrap="none", bg="#1d1f21", fg="#FFFFFF", bd=0)
+        self.result.grid(row=0, column=0, columnspan=4, pady=10, padx=5, ipadx=10, ipady=10)
         self.result.insert("1.0", "0")
         self.result.config(state="disabled")
 
@@ -22,11 +24,25 @@ class ApplicationView:
             ("0", 4, 0), (".", 4, 1), ("=", 4, 2), ("+", 4, 3),
             ("C", 5, 0), ("(", 5, 1), (")", 5, 2), ("<--", 5, 3)
         ]
+        self.create_styles()
+
+    def create_styles(self):
+        self.master.style.configure("TButton", font=("Orbitron", 14), padding=10, relief="flat",
+                                    background="#3b3f45", foreground="#00d1b2")
+        self.master.style.map("TButton", background=[('active', '#5c666c')], foreground=[('active', '#FFFFFF')])
+
+        self.master.style.configure("Operator.TButton", font=("Orbitron", 14), padding=10, relief="flat",
+                                    background="#ffbf00", foreground="#000000")
+        self.master.style.map("Operator.TButton", background=[('active', '#ff9f00')], foreground=[('active', 'black')])
 
     def initialize_buttons(self, control_buttons_callback):
         for (text, row, column) in self.buttons:
-            button = ttk.Button(self.frm, text=text, command=lambda t=text: control_buttons_callback(t))
+            style = "Operator.TButton" if text in "+-*/" else "TButton"
+            button = ttk.Button(self.frm, text=text, style=style, command=lambda t=text: control_buttons_callback(t))
             button.grid(row=row, column=column, padx=5, pady=5, sticky="nsew")
+
+            self.frm.grid_rowconfigure(row, weight=1)
+            self.frm.grid_columnconfigure(column, weight=1)
 
     def update_result(self, value_to_update):
         self.result.config(state="normal")
@@ -49,15 +65,16 @@ class ApplicationView:
         self.show_result(new_text)
         self.result.config(state="disabled")
 
-    def bind_keyboard_event(self, handler):
-        for key in "0123456789":
-            self.master.bind(key, handler)
-        operators = ["+", "-", "*", "/", "=", "<Return>", "c", "C", "(", ")", "<Key-BackSpace>"]
-        for op in operators:
-            self.master.bind(op, handler)
-
     def reset_result(self):
         self.show_result("0")
 
     def open_popup(self, message):
-        tkinter.messagebox.showinfo("Mensaje", message)
+        messagebox.showinfo("Error", message)
+
+    def bind_keyboard_event(self, handler):
+        for key in "0123456789+-*/()":
+            self.master.bind(key, handler)
+        self.master.bind("<Return>", handler)
+        self.master.bind("<BackSpace>", handler)
+        self.master.bind("c", handler)
+        self.master.bind("C", handler)

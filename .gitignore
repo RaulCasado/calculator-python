@@ -1,2 +1,8 @@
+calculator/
+
 __pycache__/
+*.py[cod]
+
 pruebas.py
+
+pyenv.cfg
